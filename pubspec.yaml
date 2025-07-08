@@ -1,0 +1,36 @@
+name: pokedex_app
+description: "A Pokedex App"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_fonts: ^6.2.1
+  introduction_screen: ^3.1.17
+  pikadart: ^1.1.0
+  shared_preferences: ^2.5.3
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_native_splash: ^2.4.6
+  flutter_launcher_icons: ^0.14.4
+
+flutter_native_splash:
+  color: "#3F51B5"
+  image: "assets/images/pokedex.png"
+  android_12:
+    color: "#3F51B5"
+    image: "assets/images/pokeball.png"
+    branding: "assets/images/pokedex.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
