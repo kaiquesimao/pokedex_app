@@ -1,10 +1,28 @@
 import 'package:pikadart/pikadart.dart';
+import 'package:pokedex_app/data/services/pokemon_service.dart';
+import 'dart:developer' as developer;
 
 class PokemonRepository {
-  final PokeApiClient pokeApiClient = PokeApiClient(
-    cacheStrategy: MemoryCacheStrategy(ttl: const Duration(days: 1)),
-  );
+  final PokemonService _pokemonService = PokemonService();
 
-  Future<NamedApiResourceList> getPokemonList(int offset, int limit) async =>
-      await pokeApiClient.pokemon.getPokemonList(offset, limit);
+  Future<NamedApiResourceList> getPokemonList({
+    required int offset,
+    required int limit,
+  }) async {
+    try {
+      return await _pokemonService.getPokemonList(offset, limit);
+    } catch (e) {
+      developer.log(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<Pokemon> getPokemonByName({required String name}) async {
+    try {
+      return await _pokemonService.getPokemonByName(name);
+    } catch (e) {
+      developer.log(e.toString());
+      rethrow;
+    }
+  }
 }

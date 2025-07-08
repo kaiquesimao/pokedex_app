@@ -1,4 +1,5 @@
 import 'package:pikadart/pikadart.dart';
+import 'package:pokedex_app/data/repositories/pokemon_repository.dart';
 import '../../core/utils/error_handler.dart';
 
 class PokemonListViewModel {
@@ -15,9 +16,9 @@ class PokemonListViewModel {
     _errorMessage = '';
 
     try {
-      final pokemons = await PokeApiClient().pokemon.getPokemonList(
-        offset,
-        limit,
+      final pokemons = await PokemonRepository().getPokemonList(
+        offset: offset,
+        limit: limit,
       );
       _pokemonList = pokemons.results;
     } catch (e) {
