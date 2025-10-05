@@ -1,37 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex_app/presentation/viewmodels/pokemon_list_viewmodel.dart';
+import 'package:pikadart/pikadart.dart';
 
-class PokemonListWidget extends StatefulWidget {
-  const PokemonListWidget({super.key});
+class PokemonListWidget extends StatelessWidget {
+  const PokemonListWidget({super.key, required this.pokemons});
 
-  @override
-  State<PokemonListWidget> createState() => _PokemonListWidgetState();
-}
-
-class _PokemonListWidgetState extends State<PokemonListWidget> {
-  final PokemonListViewModel _pokemonListViewModel = PokemonListViewModel();
+  final List<Pokemon>? pokemons;
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _pokemonListViewModel.loadPokemonList(offset: 0, limit: 10),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        if (snapshot.hasError) {
-          return Center(
-            child: Text('Erro ao carregar Pokémons: ${snapshot.error}'),
-          );
-        }
-
-        return ListView.builder(
-          itemCount: _pokemonListViewModel.pokemonList.length,
-          itemBuilder: (context, index) {
-            final pokemon = _pokemonListViewModel.pokemonList[index];
-            return ListTile(title: Text(pokemon.name));
-          },
+    if (pokemons == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    return ListView.builder(
+      itemCount: pokemons!.length,
+      itemBuilder: (context, index) {
+        final pokemon = pokemons![index];
+        final sprites = pokemon.sprites;
+        final spriteUrl = sprites.frontDefault!;
+        return ListTile(
+          title: Text(pokemon.name),
+          leading: SizedBox(
+            width: 56,
+            height: 56,
+            child: Image.network(
+              spriteUrl,
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error);
+              },
+            ),
+          ),
         );
       },
     );

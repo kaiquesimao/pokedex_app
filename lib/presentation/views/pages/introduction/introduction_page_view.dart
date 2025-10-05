@@ -21,8 +21,8 @@ class IntroductionPageView extends StatelessWidget {
               ),
             )
             .toList(),
-        onDone: _viewModel.onDone,
-        onSkip: _viewModel.onDone,
+        onDone: () => _viewModel.onDone(context),
+        onSkip: () => _viewModel.onDone(context),
         showSkipButton: true,
         next: const Icon(Icons.arrow_forward),
         done: const Text(

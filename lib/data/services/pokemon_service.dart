@@ -10,4 +10,9 @@ class PokemonService {
 
   Future<Pokemon> getPokemonByName(String name) async =>
       await _pokeApiClient.pokemon.getPokemonByName(name);
+
+  // Future<String> getPokemonImage(String name) async => await _pokeApiClient
+  //     .pokemon
+  //     .getPokemonByName(name)
+  //     .then((pokemon) => pokemon.sprites.frontDefault!);
 }

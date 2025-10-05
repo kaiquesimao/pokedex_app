@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:pokedex_app/core/constants/images.dart';
+import 'package:pokedex_app/core/constants/strings.dart';
 import 'package:pokedex_app/domain/entities/introduction_model.dart';
+import 'package:pokedex_app/presentation/views/pages/home/home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class IntroductionViewModel {
@@ -26,8 +29,14 @@ class IntroductionViewModel {
 
   List<IntroductionModel> get pages => _pages;
 
-  void onDone() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('hasSeenIntro', true);
+  void onDone(BuildContext context) async {
+    final navigator = Navigator.of(context);
+
+    final prefs = SharedPreferencesAsync();
+    await prefs.setBool(SharedPrefKeys.hasSeenIntro.name, true);
+
+    navigator.pushReplacement(
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
   }
 }

@@ -3,3 +3,5 @@ class AppStrings {
   static const String errorSomethingWentWrong = 'Algo deu errado';
   static const String loading = 'Carregando...';
 }
+
+enum SharedPrefKeys { hasSeenIntro }
